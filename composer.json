@@ -1,0 +1,16 @@
+{
+    "name": "ximdex/xedit-base",
+    "description": "Xedit base",
+    "authors": [
+        {
+            "name": "David Arroyo",
+            "email": "darroyo@ximdex.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Xedit\\Base\\": "src/"
+        }
+    }
+}
