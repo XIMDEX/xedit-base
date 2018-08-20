@@ -13,10 +13,12 @@ interface IXeditContainer
 
     public function getContent(): string;
 
+    /** Methods */
+    public static function get($attribute, $value);
+
+    public function saveContent($content): bool;
+
     /** Relations */
     public function getLayout(): IXeditLayout;
-
-    public function getContainer($condition): IXeditContainer;
-
 
 }

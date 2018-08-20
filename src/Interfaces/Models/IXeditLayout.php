@@ -17,6 +17,9 @@ interface IXeditLayout
     /** Attributes */
     public function getContent(): string;
 
+    /** Methods */
+    public static function get($attribute, $value);
+
     /** Relations */
     public function getComponent($condition): IXeditComponent;
 }

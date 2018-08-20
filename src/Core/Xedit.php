@@ -40,7 +40,7 @@ class Xedit
                     $data = static::getNodeData($layout, $doc, $template[key($template)], $schemaLayout, $isCurrentNode);
                     $nodes['xe_' . $data['id']] = $data;
                 } else {
-                    $include = $doc->getContainer($template[key($template)]);
+                    $include = $doc::get('slug', $template[key($template)]);
                     if (!is_null($include)) {
                         $nodes = static::getNodes($include, $nodes);
                     } else {
@@ -186,7 +186,7 @@ class Xedit
 
             $schema = array_merge($jsonComp['schema'], $data);
             $schema['name'] = $compName;
-            $view = $comp->getView($jsonComp['schema']['view']);
+            $view = $comp->getView();
 
             if ($view && $view->getContent()) {
                 $schema['view'] = $view->getContent();

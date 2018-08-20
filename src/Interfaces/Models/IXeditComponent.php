@@ -8,6 +8,9 @@ interface IXeditComponent
     /** Attributes */
     public function getContent(): string;
 
+    /** Methods */
+    public static function get($attribute, $value);
+
     /** Relations */
-    public function getView($condition): IXeditView;
+    public function getView(): IXeditView;
 }
