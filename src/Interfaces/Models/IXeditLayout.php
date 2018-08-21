@@ -19,9 +19,8 @@ interface IXeditLayout extends IBase
     /** Attributes */
     public function getContent(): string;
 
-    /** Methods */
-    public static function get($attribute, $value): IXeditLayout;
-
     /** Relations */
     public function getComponent($condition): IXeditComponent;
+
+    public function getIncludeContainer($condition): IXeditContainer;
 }

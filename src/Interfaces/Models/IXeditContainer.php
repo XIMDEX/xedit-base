@@ -14,8 +14,6 @@ interface IXeditContainer extends IBase
     public function getContent(): string;
 
     /** Methods */
-    public static function get($attribute, $value): IXeditContainer;
-
     public function saveContent($content): bool;
 
     /** Relations */

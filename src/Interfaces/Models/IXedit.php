@@ -2,14 +2,10 @@
 
 namespace Xedit\Base\Interfaces\Models;
 
-interface IXedit
+use Xedit\Base\Core\IBase;
+
+interface IXedit extends IBase
 {
-
-    /** Attributes */
-    public function getId();
-
-    /** Methods */
-    public static function get($attribute, $value): IXedit;
 
     /** Relations */
     public function getContainer(): IXeditContainer;

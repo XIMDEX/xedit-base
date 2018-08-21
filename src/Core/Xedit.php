@@ -40,7 +40,7 @@ class Xedit
                     $data = static::getNodeData($layout, $doc, $template[key($template)], $schemaLayout, $isCurrentNode);
                     $nodes['xe_' . $data['id']] = $data;
                 } else {
-                    $include = $doc::get($doc::getUniqueName(), $template[key($template)]);
+                    $include = $layout->getIncludeContainer($template[key($template)]);
                     if (!is_null($include)) {
                         $nodes = static::getNodes($include, $nodes);
                     } else {
