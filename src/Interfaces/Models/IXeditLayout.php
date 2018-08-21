@@ -2,7 +2,9 @@
 
 namespace Xedit\Base\Interfaces\Models;
 
-interface IXeditLayout
+use Xedit\Base\Core\IBase;
+
+interface IXeditLayout extends IBase
 {
     /**
      * This flag indicate content node
@@ -18,7 +20,7 @@ interface IXeditLayout
     public function getContent(): string;
 
     /** Methods */
-    public static function get($attribute, $value);
+    public static function get($attribute, $value): IXeditLayout;
 
     /** Relations */
     public function getComponent($condition): IXeditComponent;

@@ -3,18 +3,18 @@
 namespace Xedit\Base\Interfaces\Models;
 
 
-interface IXeditContainer
+use Xedit\Base\Core\IBase;
+
+interface IXeditContainer extends IBase
 {
 
     /** Attributes */
-    public function getId();
-
     public function getTitle(): string;
 
     public function getContent(): string;
 
     /** Methods */
-    public static function get($attribute, $value);
+    public static function get($attribute, $value): IXeditContainer;
 
     public function saveContent($content): bool;
 
