@@ -2,23 +2,22 @@
 
 namespace Xedit\Base\Models;
 
-use \InvalidArgumentException;
-
 class RouterMapper
 {
 
     private $baseUrl;
-    private $action = '_action';
-    private $saveUrl = '/save/:id';
-    private $infoNodeUrl = '/save/:id';
-    private $resourceUrl = '/resource/:id';
+    private $endpoints;
+    private $token;
+    private $attrs;
 
-    public function __construct($baseUrl)
+
+    public function __construct(string $baseUrl, array $token, $endpoints = null, $attrs = [])
     {
-        if (is_null($baseUrl))
-            throw new InvalidArgumentException('Invalid base url');
+        $this->baseUrl = $baseUrl;
+        $this->token = $token;
+        $this->endpoints = !is_null($endpoints) ? $endpoints : $this->configEndpoints();
+        $this->attrs = $attrs;
 
-        $this->baseUrl;
     }
 
     /** Getters and setters */
@@ -27,58 +26,74 @@ class RouterMapper
         return $this->baseUrl;
     }
 
-    public function setAction(string $action): string
+    public function getEndpoints()
     {
-        $this->action = $action;
+        return $this->endpoints;
     }
 
-    public function getAction(): string
+    public function setParamEndpoint(string $endpoint, string $name, $params)
     {
-        return $this->action;
+        $this->endpoints[$endpoint][$name]['params'] = $params;
     }
 
-    public function setSaveUrl(string $url)
+    public function getToken()
     {
-        $this->saveUrl = $url;
+        return $this->token;
     }
 
-    public function getSaveUrl(): string
+    public function getAttrs()
     {
-        return $this->saveUrl;
+        return $this->attrs;
     }
 
-    public function setInfoNodeUrl(string $url)
+    public function addAttr($attr, $value)
     {
-        $this->infoNodeUrl = $url;
+        $this->attrs[$attr] = $value;
     }
 
-    public function getInfoNodeUrl(): string
+    public function existAttr(string $attr)
     {
-        return $this->infoNodeUrl;
+        return is_array($this->attrs) && isset($this->attrs[$attr]);
     }
-
-    public function setResourceUrl(string $url)
-    {
-        $this->resourceUrl = $url;
-    }
-
-    public function getResourceUrl(): string
-    {
-        return $this->resourceUrl;
-    }
-
 
     /** Methods **/
+    private function configEndpoints()
+    {
+        return [
+            'documents' => [
+                'get' => [
+                    'method' => 'get',
+                    'path' => 'xedit/{id}'
+                ],
+                'save' => [
+                    'method' => 'post',
+                    'path' => 'xedit/{id}'
+                ]
+            ],
+            'resources' => [
+                'tree' => [
+                    'method' => 'get',
+                    'path' => 'xedit/resources/tree',
+                ],
+                'image' => [
+                    'method' => 'get',
+                    'path' => 'resources/{id}/image',
+                ],
+                'get' => [
+                    'method' => 'get',
+                    'path' => 'xedit/resources/{id}'
+                ]
+            ]
+        ];
+    }
+
     public function toArray()
     {
         return [
             'baseUrl' => $this->getBaseUrl(),
-            'action' => $this->getAction(),
-            'routes' => [
-                'set' => $this->getSaveUrl(),
-                'infoNode' => $this->getInfoNodeUrl(),
-                'resource' => $this->getResourceUrl()
-            ]
+            'token' => $this->getToken(),
+            'endpoints' => $this->getEndpoints(),
+            'attrs' => $this->getAttrs()
         ];
     }
 }
